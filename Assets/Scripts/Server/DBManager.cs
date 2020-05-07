@@ -9,31 +9,23 @@ public class DBManager : MonoBehaviour
 {
     public InputField inputUserName;
 
-    public GameObject inputPasswordObject;
-    public InputField inputPassword;
-
-    public GameObject inputPasswordConfirmObject;
-    public InputField inputPasswordConfirm;
+    public Text textError;
+    public Text textProcess;
 
     public GameObject buttonSubmit;
 
     public string userName;
     public string password;
-    public string passwordConfirm;
 
     public string serverCommand = "";
     private void Start()
     {
-        inputPasswordObject.SetActive(false);
-        inputPasswordConfirmObject.SetActive(false);
         PlayerData data = SaveSystem.LoadPlayer();
-        if (data != null)
+        if (data != null )
         {
-
             userName = data.playerName;
             password = data.playerPassword;
             inputUserName.text = userName;
-            inputPassword.text = password;
             Welcome();
             Debug.Log(Application.persistentDataPath);
 
@@ -43,20 +35,24 @@ public class DBManager : MonoBehaviour
 
     public void Welcome()
     {
+        Error("");
         if (CheckInputField()) {
             Debug.Log("Server command: " + serverCommand);
             switch (serverCommand)
             {
                 case "Login":
                     Debug.Log("Server logging in");
+                    Process("Logging in...");
                     StartCoroutine(ServerLogin());
                     break;
                 case "Register":
                     Debug.Log("Server registration");
+                    Process("Registering...");
                     StartCoroutine(ServerRegister());
                     break;
                 default:
                     Debug.Log("What to do with user?");
+                    Process("Searching for your login...");
                     StartCoroutine(WhatToDoWithUser());
                     break;
             }
@@ -65,18 +61,7 @@ public class DBManager : MonoBehaviour
 
     private bool CheckInputField()
     {
-        switch (serverCommand)
-        {
-            case "Login":
-                if (CheckInputFieldName() /*&& CheckInputFieldPassword()*/) return true;
-                break;
-            case "Register":
-                if (CheckInputFieldName() /*&& *//*CheckInputFieldPassword() && CheckInputFieldPasswordConfirm()*/) return true;
-                break;
-            default:
-                if (CheckInputFieldName()) return true;
-                break;
-        }
+        if (CheckInputFieldName()) return true;
 
         return false;
     }
@@ -89,52 +74,11 @@ public class DBManager : MonoBehaviour
         }
         else
         {
-            Debug.Log("No login in inputfield");
+            Error("No Login in inputfield!");
             return false;
         }
     }
 
-    private bool CheckInputFieldPassword()
-    {
-        if (inputPassword.text != "")
-        {
-            return true;// userName = inputUserName.text;
-        }
-        else
-        {
-            Debug.Log("No Password in inputfield");
-            return false;
-        }
-    }
-
-    private bool CheckInputFieldPasswordConfirm()
-    {
-        bool all = false;
-        bool notEmpty = false;
-        bool match = false;
-
-        //Proverka, estj li parol
-        if (inputPasswordConfirm.text != "")
-        {
-            notEmpty = true;
-        }
-        else
-        {
-            Debug.Log("No PasswordConfirm in inputfield");
-        }
-        //Proverka, sovpadaet li paroli
-        if (inputPasswordConfirm.text == inputPassword.text)
-        {
-            match = true;
-        }
-        else
-        {
-            Debug.Log("Paroli ne sovpadajut");
-        }
-        //Summa
-        if (notEmpty && match) all = true;
-        return all;
-    }
 
     private IEnumerator WhatToDoWithUser()
     {
@@ -164,7 +108,6 @@ public class DBManager : MonoBehaviour
     }
     private void loginf()
     {
-        inputPasswordObject.SetActive(true);
         inputUserName.enabled = false;
         //buttonNext.text = "asas";
     }
@@ -172,9 +115,8 @@ public class DBManager : MonoBehaviour
     private void registerf()
     {
         inputUserName.enabled = false;
-        inputPasswordObject.SetActive(true);
-        inputPasswordConfirmObject.SetActive(true);
-
+        
+        //Создание случайного пароля
         const string glyphs = "abcdefghijklmnopqrstuvwxyz0123456789";
         int charAmount = Random.Range(45, 50); //set those to the minimum and maximum length of your string
         for (int i = 0; i < charAmount; i++)
@@ -188,17 +130,6 @@ public class DBManager : MonoBehaviour
 
     private IEnumerator ServerLogin()
     {
-/*        PlayerData data = SaveSystem.LoadPlayer();
-        if(data != null && data.playerName == inputUserName.text) {
-            userName = data.playerName;
-            password = data.playerPassword;
-        }*/
-
-        //userName = inputUserName.text;
-        //password = inputPassword.text;
-        Debug.Log("Login in system: "+userName+" password in system: "+ password);
-        
-
         WWWForm form = new WWWForm(); // переменная которую мы отошлем серверу
         form.AddField("Name", userName);
         form.AddField("Pass", password);
@@ -216,14 +147,15 @@ public class DBManager : MonoBehaviour
         if (www.text == "OK")
         {
             Debug.Log("SUPER!!!!");
-
+            Process("Logging in complete!");
             //PEREHOD V IGRU!!!!!!
             StartCoroutine(StartGame(userName));
 
         }
-        else if (www.text == "WRONG")
+        else 
         {
-            Debug.Log("NE SOVPADAJET PAROL");
+            Error("USER ALREADY EXISTS");
+            inputUserName.enabled = true;
         }
     }
 
@@ -251,8 +183,20 @@ public class DBManager : MonoBehaviour
         {
             Debug.Log("SUPER!!!!");
             //PEREHOD V IGRU!
+            Process("Registration complete!");
             StartCoroutine(StartGame(userName));
         }
+    }
+
+    public void Process(string process)
+    {
+        textProcess.text = process;
+    }
+
+    public void Error(string error)
+    {
+        textError.text = error;
+        Debug.Log(error);
     }
 
 
