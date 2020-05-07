@@ -6,9 +6,11 @@ public class SpawnMob : MonoBehaviour
 {
     public GameObject playerObject;
     public PlayerStats player;// = playerObject.GetComponent<PlayerStats>();
+    public Transform Spawner;
 
     public GameObject mob1;
     public GameObject mob2;
+
     private int currentTotalMobHP = 0;
     private int mobcounter = 0;
     private int deadmobcounter = 0;
@@ -47,8 +49,8 @@ public class SpawnMob : MonoBehaviour
     void Start ()
     {
         
-        playerObject = GameObject.Find("Player");
-        player = playerObject.GetComponent<PlayerStats>();
+       // playerObject = GameObject.Find("Player");
+        //player = playerObject.GetComponent<PlayerStats>();
 
 
 
@@ -67,8 +69,11 @@ public class SpawnMob : MonoBehaviour
         {
             float randomY = (float)rand.Next(-19, -16)/10;
             //создание моба
-            GameObject mob = Instantiate(mob1, new Vector2 (10f, randomY), Quaternion.identity);
+            GameObject mob = Instantiate(mob2, Spawner.transform.position, Quaternion.identity);
+            
+//            GameObject mob = Instantiate(mob1, new Vector2 (10f, randomY), Quaternion.identity);
             mob.transform.parent = this.transform;
+            
             yield return new WaitForSeconds(mobSpawnDelay);
         }
     }

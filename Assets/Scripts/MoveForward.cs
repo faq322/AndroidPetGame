@@ -18,6 +18,9 @@ public class MoveForward : MonoBehaviour
     private int damage;
     [SerializeField]
     private int exp;
+    [SerializeField]
+    private int power;
+
     public float attackDistance;
     public float randomDistance;
 

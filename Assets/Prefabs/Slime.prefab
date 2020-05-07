@@ -219,10 +219,13 @@ MonoBehaviour:
   currentMobHP: 100
   damage: 5
   exp: 3
+  power: 10
   attackDistance: -1.2
   randomDistance: 0
   playerObject: {fileID: 0}
   player: {fileID: 0}
+  mobSpawnerObject: {fileID: 0}
+  mobSpawner: {fileID: 0}
   healthBar: {fileID: 5148534771225802549}
 --- !u!61 &8784520613403258257
 BoxCollider2D:
