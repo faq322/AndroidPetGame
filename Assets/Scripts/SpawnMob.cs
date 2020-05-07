@@ -8,14 +8,29 @@ public class SpawnMob : MonoBehaviour
     public PlayerStats player;// = playerObject.GetComponent<PlayerStats>();
     public Transform Spawner;
 
-    public GameObject mob1;
-    public GameObject mob2;
+
+
+    //Slime
+    [System.Serializable]
+    public class Mob {
+        public string name;
+        public GameObject mob1;
+        public int power;
+    }
+
+    public Mob[] mobs;
+
+    //Fly
+    //public GameObject mob2;
 
     private int currentTotalMobHP = 0;
     private int mobcounter = 0;
     private int deadmobcounter = 0;
+
     [SerializeField]
-    public int mobsLimit = 10;
+    public int maximalMobCountInRow = 3;
+    [SerializeField]
+    public int mobsLimit = 999;
     public float mobSpawnDelay = 1.5f;
 
     public int CurrentTotalMobHP()
@@ -48,11 +63,11 @@ public class SpawnMob : MonoBehaviour
 
     void Start ()
     {
-        
-       // playerObject = GameObject.Find("Player");
+
+        // playerObject = GameObject.Find("Player");
         //player = playerObject.GetComponent<PlayerStats>();
 
-
+        string Wave = CreateWave(player.gameLvl);
 
         StartCoroutine(Spawn ());
     }
@@ -62,6 +77,7 @@ public class SpawnMob : MonoBehaviour
         Random rand = new Random();
         yield return new WaitForSeconds(2);
         Debug.Log("player game level:    " + player.gameLvl);
+        
         mobsLimit = player.gameLvl;
         Debug.Log("Lets GO!");
         PlayerStats.start = true;
@@ -69,7 +85,7 @@ public class SpawnMob : MonoBehaviour
         {
             float randomY = (float)rand.Next(-19, -16)/10;
             //создание моба
-            GameObject mob = Instantiate(mob2, Spawner.transform.position, Quaternion.identity);
+            GameObject mob = Instantiate(mobs[0].mob1, Spawner.transform.position, Quaternion.identity);
             
 //            GameObject mob = Instantiate(mob1, new Vector2 (10f, randomY), Quaternion.identity);
             mob.transform.parent = this.transform;
@@ -78,15 +94,43 @@ public class SpawnMob : MonoBehaviour
         }
     }
 
-/*    //если игрок выиграл
-    static IEnumerator FinishWin()
+    public void buttonhuj()
     {
-        yield return new WaitForSeconds(3);
-        Debug.Log("Go to menu!");
-        Application.LoadLevel("main");
-    }*/
+        CreateWave(10);
+    }
+
+    public string CreateWave(int gameLvl)
+    {
+        //0 - slime
+        //1 - fly
+        string wave = "";
+        int totalpower = gameLvl * 100;
+
+        //fly
+        while (totalpower > 10) { 
+            for (int i = 1; i >= 0; i--) { 
+                int mobcount = totalpower / mobs[i].power;
+                mobcount = (mobcount > maximalMobCountInRow) ? maximalMobCountInRow : mobcount;
 
 
+                Debug.Log(mobcount);
 
+                totalpower -= mobs[i].power* mobcount;
+                wave += CreateWaveString(mobcount, i);
+            }
+        }
+        Debug.Log("UUUUUUUUU Wve: " + wave);
+        return wave;
+    }
+
+    public string CreateWaveString(int count, int num)
+    {
+        string _wave = "";
+        for (int i = 0; i < count; i++)
+        {
+            _wave +=num;
+        }
+        return _wave;
+    }
 
 }

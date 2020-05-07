@@ -1342,8 +1342,13 @@ MonoBehaviour:
   playerObject: {fileID: 1078979649}
   player: {fileID: 1078979655}
   Spawner: {fileID: 1068275831}
-  mob1: {fileID: 1744205728516974669, guid: 7c48acb633661564e96d19ba338dbb59, type: 3}
-  mob2: {fileID: 5657068427856516848, guid: 3b56e8377c721574dbf0c58c669438ed, type: 3}
+  mobs:
+  - name: Slime
+    mob1: {fileID: 1744205728516974669, guid: 7c48acb633661564e96d19ba338dbb59, type: 3}
+    power: 10
+  - name: Fly
+    mob1: {fileID: 5657068427856516848, guid: 3b56e8377c721574dbf0c58c669438ed, type: 3}
+    power: 30
   mobsLimit: 2
   mobSpawnDelay: 1.5
 --- !u!4 &1068275831
@@ -1354,7 +1359,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1068275829}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 9.4, y: -0.7436017, z: -1.4806312}
+  m_LocalPosition: {x: 9.62, y: -1.8, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
