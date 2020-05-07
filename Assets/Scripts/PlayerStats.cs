@@ -7,7 +7,8 @@ public class PlayerStats : MonoBehaviour
 {
     //Common
     [Header("Common")]
-    public static string userLogin;
+    public static string playerName;
+    public static string playerPassword;
     public static int userID;
     public int playerLvl;
     public int playerExp;
@@ -102,7 +103,11 @@ public class PlayerStats : MonoBehaviour
         //Load data from storage
         PlayerData data = SaveSystem.LoadPlayer();
         
-        if (data != null && data.playerid == userID) { 
+        if (data != null && data.playerid == userID) {
+            userID = data.playerid;
+            playerName = data.playerName;
+            playerPassword = data.playerPassword;
+
             hp = data.hp;
             MaxHP = data.maxHP;
 
@@ -155,12 +160,14 @@ public class PlayerStats : MonoBehaviour
     void OnApplicationQuit()
     //public void quit()
     {
+        SaveSystem.SavePlayer(this);
         StartCoroutine(SaveSystem.SavePlayerOnServer(this));
         Debug.Log("Application ending after " + Time.time + " seconds");
     }
 
     public void testLoad()
     {
+        //SaveSystem.SavePlayer(this);
         StartCoroutine(SaveSystem.SavePlayerOnServer(this));
 
     }

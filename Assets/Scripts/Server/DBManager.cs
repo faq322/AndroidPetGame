@@ -3,7 +3,7 @@ using System.Collections.Generic;
     using System;
 using UnityEngine;
 using UnityEngine.UI;
-using Random = System.Random;
+using Random = UnityEngine.Random;
 
 public class DBManager : MonoBehaviour
 {
@@ -26,6 +26,19 @@ public class DBManager : MonoBehaviour
     {
         inputPasswordObject.SetActive(false);
         inputPasswordConfirmObject.SetActive(false);
+        PlayerData data = SaveSystem.LoadPlayer();
+        if (data != null)
+        {
+
+            userName = data.playerName;
+            password = data.playerPassword;
+            inputUserName.text = userName;
+            inputPassword.text = password;
+            Welcome();
+            Debug.Log(Application.persistentDataPath);
+
+        }
+
     }
 
     public void Welcome()
@@ -55,10 +68,10 @@ public class DBManager : MonoBehaviour
         switch (serverCommand)
         {
             case "Login":
-                if (CheckInputFieldName() && CheckInputFieldPassword()) return true;
+                if (CheckInputFieldName() /*&& CheckInputFieldPassword()*/) return true;
                 break;
             case "Register":
-                if (CheckInputFieldName() && CheckInputFieldPassword() && CheckInputFieldPasswordConfirm()) return true;
+                if (CheckInputFieldName() /*&& *//*CheckInputFieldPassword() && CheckInputFieldPasswordConfirm()*/) return true;
                 break;
             default:
                 if (CheckInputFieldName()) return true;
@@ -147,6 +160,7 @@ public class DBManager : MonoBehaviour
         {
             registerf();
         }
+        Welcome();
     }
     private void loginf()
     {
@@ -162,17 +176,28 @@ public class DBManager : MonoBehaviour
         inputPasswordConfirmObject.SetActive(true);
 
         const string glyphs = "abcdefghijklmnopqrstuvwxyz0123456789";
-        int charAmount = Random.Range(minCharAmount, maxCharAmount); //set those to the minimum and maximum length of your string
+        int charAmount = Random.Range(45, 50); //set those to the minimum and maximum length of your string
         for (int i = 0; i < charAmount; i++)
         {
-            myString += glyphs[Random.Range(0, glyphs.Length)];
+            password = "";
+            password += glyphs[Random.Range(0, glyphs.Length)];
+            PlayerStats.playerPassword += password;
+
         }
     }
 
     private IEnumerator ServerLogin()
     {
-        userName = inputUserName.text;
-        password = inputPassword.text;
+/*        PlayerData data = SaveSystem.LoadPlayer();
+        if(data != null && data.playerName == inputUserName.text) {
+            userName = data.playerName;
+            password = data.playerPassword;
+        }*/
+
+        //userName = inputUserName.text;
+        //password = inputPassword.text;
+        Debug.Log("Login in system: "+userName+" password in system: "+ password);
+        
 
         WWWForm form = new WWWForm(); // переменная которую мы отошлем серверу
         form.AddField("Name", userName);
@@ -205,7 +230,7 @@ public class DBManager : MonoBehaviour
     private IEnumerator ServerRegister()
     {
         userName = inputUserName.text;
-        password = inputPassword.text;
+        password = PlayerStats.playerPassword;
 
         WWWForm form = new WWWForm(); // переменная которую мы отошлем серверу
         form.AddField("Name", userName);
@@ -233,7 +258,8 @@ public class DBManager : MonoBehaviour
 
     private IEnumerator StartGame(string login)
     {
-        PlayerStats.userLogin = login;
+
+        PlayerStats.playerName = login;
 
 
         WWWForm form = new WWWForm(); // переменная которую мы отошлем серверу
