@@ -11,7 +11,7 @@ public class MoveForward : MonoBehaviour
 
     [Header("Mob parameters")]
     [SerializeField]
-    private int mobSpeed;
+    private float mobSpeed;
     [SerializeField]
     public int mobHP, currentMobHP;
     [SerializeField]

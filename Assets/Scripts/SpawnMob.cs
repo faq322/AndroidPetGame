@@ -16,6 +16,8 @@ public class SpawnMob : MonoBehaviour
         public string name;
         public GameObject mob1;
         public int power;
+        public float spawnHeight;
+        public int spawnCount;
     }
 
     public Mob[] mobs;
@@ -83,17 +85,34 @@ public class SpawnMob : MonoBehaviour
         mobsLimit = player.gameLvl;
         Debug.Log("Lets GO!");
         PlayerStats.start = true;
-        //while (PlayerStats.inGame && mobcounter<mobsLimit)
+
         foreach(char c_mobNum in wave)
         {
             int i_mobNum = c_mobNum - '0';
-            float randomY = (float)rand.Next(-19, -16)/10;
+
             //создание моба
-            
-            GameObject mob = Instantiate(mobs[i_mobNum].mob1, Spawner.transform.position, Quaternion.identity);
-            
-//            GameObject mob = Instantiate(mob1, new Vector2 (10f, randomY), Quaternion.identity);
-            mob.transform.parent = this.transform;
+
+            //место(высота) спавна
+            float randomY = (float)rand.Next(-5, 5) / 10;
+
+            Vector3 spawnPoint = Spawner.transform.position;
+            spawnPoint.y += mobs[i_mobNum].spawnHeight + randomY;
+            Debug.Log(spawnPoint);
+
+            for (int j = 0; j < mobs[i_mobNum].spawnCount; j++) 
+            { 
+             GameObject mob = Instantiate(mobs[i_mobNum].mob1, spawnPoint, Quaternion.identity);
+                //закидываем мобов в папку енеми
+                if (mobs[i_mobNum].spawnCount > 1)
+                {
+                    yield return new WaitForSeconds(mobSpawnDelay / 2);
+                    randomY = (float)rand.Next(-5, 5) / 10;
+                    spawnPoint.y += randomY;
+                }
+                mob.transform.parent = this.transform;
+            }
+
+
             
             yield return new WaitForSeconds(mobSpawnDelay);
             if (!PlayerStats.inGame) break;
@@ -112,11 +131,8 @@ public class SpawnMob : MonoBehaviour
             for (int i = mobs.Length-1; i >= 0; i--) { 
                 int mobcount = (totalpower - 20*i)/ mobs[i].power;
                 //максимум * моба могут заспавниться под ряд
-                Debug.Log("Mob[" + i + "] before row nerf counts: " + mobcount);
+
                 mobcount = (mobcount > maximalMobCountInRow) ? maximalMobCountInRow : mobcount;
-
-
-                Debug.Log("Mob["+i+"] counts: "+mobcount);
 
                 totalpower -= mobs[i].power* mobcount;
                 wave += CreateWaveString(mobcount, i);
