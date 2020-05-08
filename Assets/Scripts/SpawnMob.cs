@@ -28,7 +28,7 @@ public class SpawnMob : MonoBehaviour
     private int deadmobcounter = 0;
 
     [SerializeField]
-    public int maximalMobCountInRow = 3;
+    public int maximalMobCountInRow = 2;
     [SerializeField]
     public int mobsLimit = 999;
     public float mobSpawnDelay = 1.5f;
@@ -96,7 +96,7 @@ public class SpawnMob : MonoBehaviour
 
     public void buttonhuj()
     {
-        CreateWave(10);
+        CreateWave(player.gameLvl);
     }
 
     public string CreateWave(int gameLvl)
@@ -104,20 +104,25 @@ public class SpawnMob : MonoBehaviour
         //0 - slime
         //1 - fly
         string wave = "";
-        int totalpower = gameLvl * 100;
+        int totalpower = gameLvl * 10;
 
         //fly
-        while (totalpower > 10) { 
-            for (int i = 1; i >= 0; i--) { 
-                int mobcount = totalpower / mobs[i].power;
+        int counrt = 0;
+        while (totalpower > 1 || counrt>=100) { 
+            for (int i = mobs.Length-1; i >= 0; i--) { 
+                int mobcount = (totalpower - 20*i)/ mobs[i].power;
+                //максимум * моба могут заспавниться под ряд
+                Debug.Log("Mob[" + i + "] before row nerf counts: " + mobcount);
                 mobcount = (mobcount > maximalMobCountInRow) ? maximalMobCountInRow : mobcount;
 
 
-                Debug.Log(mobcount);
+                Debug.Log("Mob["+i+"] counts: "+mobcount);
 
                 totalpower -= mobs[i].power* mobcount;
                 wave += CreateWaveString(mobcount, i);
             }
+            Debug.Log("countr: "+counrt);
+            counrt++;
         }
         Debug.Log("UUUUUUUUU Wve: " + wave);
         return wave;
