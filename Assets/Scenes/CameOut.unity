@@ -1349,6 +1349,16 @@ MonoBehaviour:
   - name: Fly
     mob1: {fileID: 5657068427856516848, guid: 3b56e8377c721574dbf0c58c669438ed, type: 3}
     power: 30
+  - name: Pink Slime
+    mob1: {fileID: 5657068427856516848, guid: 3b56e8377c721574dbf0c58c669438ed, type: 3}
+    power: 70
+  - name: Slow fly
+    mob1: {fileID: 5657068427856516848, guid: 3b56e8377c721574dbf0c58c669438ed, type: 3}
+    power: 90
+  - name: Soldier Slime
+    mob1: {fileID: 5657068427856516848, guid: 3b56e8377c721574dbf0c58c669438ed, type: 3}
+    power: 150
+  maximalMobCountInRow: 2
   mobsLimit: 2
   mobSpawnDelay: 1.5
 --- !u!4 &1068275831

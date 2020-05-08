@@ -40,7 +40,7 @@ public class SpawnMob : MonoBehaviour
     public void PlusTotalMob(int mobHP)
     {
         currentTotalMobHP += mobHP;
-        mobcounter++;
+       // mobcounter++;
     }
 
     public void MinusTotalMobHP(int HP)
@@ -50,7 +50,8 @@ public class SpawnMob : MonoBehaviour
 
     public void MinusMob()
     {
-        if (++deadmobcounter >= mobsLimit && PlayerStats.inGame)
+        Debug.Log("MOB ID DEAD. total mobs: " + mobcounter + "; dead mobs: " + deadmobcounter);
+        if (++deadmobcounter >= mobcounter && PlayerStats.inGame)
         {
             //Wictory
             PlayerStats.win = true;
@@ -67,36 +68,36 @@ public class SpawnMob : MonoBehaviour
         // playerObject = GameObject.Find("Player");
         //player = playerObject.GetComponent<PlayerStats>();
 
-        string Wave = CreateWave(player.gameLvl);
+        
 
-        StartCoroutine(Spawn ());
+        StartCoroutine(Spawn());
     }
 
     IEnumerator Spawn ()
     {
         Random rand = new Random();
         yield return new WaitForSeconds(2);
+        string wave = CreateWave(player.gameLvl);
         Debug.Log("player game level:    " + player.gameLvl);
         
         mobsLimit = player.gameLvl;
         Debug.Log("Lets GO!");
         PlayerStats.start = true;
-        while (PlayerStats.inGame && mobcounter<mobsLimit)
+        //while (PlayerStats.inGame && mobcounter<mobsLimit)
+        foreach(char c_mobNum in wave)
         {
+            int i_mobNum = c_mobNum - '0';
             float randomY = (float)rand.Next(-19, -16)/10;
             //создание моба
-            GameObject mob = Instantiate(mobs[0].mob1, Spawner.transform.position, Quaternion.identity);
+            
+            GameObject mob = Instantiate(mobs[i_mobNum].mob1, Spawner.transform.position, Quaternion.identity);
             
 //            GameObject mob = Instantiate(mob1, new Vector2 (10f, randomY), Quaternion.identity);
             mob.transform.parent = this.transform;
             
             yield return new WaitForSeconds(mobSpawnDelay);
+            if (!PlayerStats.inGame) break;
         }
-    }
-
-    public void buttonhuj()
-    {
-        CreateWave(player.gameLvl);
     }
 
     public string CreateWave(int gameLvl)
@@ -105,7 +106,6 @@ public class SpawnMob : MonoBehaviour
         //1 - fly
         string wave = "";
         int totalpower = gameLvl * 10;
-
         //fly
         int counrt = 0;
         while (totalpower > 1 || counrt>=100) { 
@@ -125,6 +125,9 @@ public class SpawnMob : MonoBehaviour
             counrt++;
         }
         Debug.Log("UUUUUUUUU Wve: " + wave);
+
+
+        mobcounter = wave.Length;
         return wave;
     }
 
