@@ -219,6 +219,7 @@ MonoBehaviour:
   currentMobHP: 100
   damage: 5
   exp: 3
+  moneyReward: 30
   attackDistance: -1.2
   randomDistance: 0
   playerObject: {fileID: 0}

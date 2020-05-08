@@ -18,6 +18,8 @@ public class MoveForward : MonoBehaviour
     private int damage;
     [SerializeField]
     private int exp;
+    [SerializeField]
+    private int moneyReward;
 
 
     public float attackDistance;
@@ -109,14 +111,14 @@ public class MoveForward : MonoBehaviour
         Destroy(gameObject);
 
         player.AddPlayerExp(exp);
-        
+        player.AddMoney(moneyReward);
         
 
         mobSpawner.MinusMob();
         mobSpawner.MinusTotalMobHP(mobHP); 
     }
 
-
+    
 
 
 }

@@ -64,6 +64,8 @@ public static class SaveSystem
         form.AddField("gameLvl", data.gameLvl);
         form.AddField("hp", data.hp);
         form.AddField("maxHP", data.maxHP);
+        form.AddField("money", data.money);
+        form.AddField("diamonds", data.diamonds);
 
 
         WWW www = new WWW("http://p64328.hostru08.fornex.host/cameout.com/test/saveplayer.php", form);
@@ -93,7 +95,7 @@ public static class SaveSystem
     }
 
 
-    //Ne rabotayet do konca
+/*    //Ne rabotayet do konca
     public static IEnumerator LoadPlayerFromServer(PlayerStats player)
     {
         PlayerData data = new PlayerData(player);
@@ -117,7 +119,7 @@ public static class SaveSystem
         //PlayerData data = JsonParse(www.text);
 
         yield return data;
-    }
+    }*/
 
     static PlayerData JsonParse(string jsonstring)
     {

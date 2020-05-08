@@ -29,7 +29,17 @@ public class PlayerStats : MonoBehaviour
     public int hp;
     public int maxHP;
 
+   // [Header("Pocket")]
+    [System.Serializable]
+    public class Pocket
+    {
+        public int money;
+        public Text moneyAmount;
+        public int diamonds;
+        public Text diamondsAmount;
+    }
 
+    public Pocket pocket;
 
 
 
@@ -72,21 +82,27 @@ public class PlayerStats : MonoBehaviour
             playerLvl++;
             playerExp -= PlayerExpToNextLvl;
             PlayerExpToNextLvl += 20;
-
+            AddDiamonds(1);
         }
     }
     public int PlayerLvl { get => playerLvl; set => playerLvl = value; }
     public int PlayerExpToNextLvl { get => playerExpToNextLvl; set => playerExpToNextLvl = value; }
 
+    public void AddMoney(int amount)
+    {
+        this.pocket.money += amount;
+        this.pocket.moneyAmount.text = "";
+        this.pocket.moneyAmount.text += this.pocket.money;
+    }
 
-    //void Update()
-    // {
-    //healthBar.fillAmount = (float)HP/(float)MaxHP;
-    //}
+    public void AddDiamonds(int amount)
+    {
+        this.pocket.diamonds += amount;
+        this.pocket.diamondsAmount.text = "";
+        this.pocket.diamondsAmount.text += this.pocket.diamonds;
+    }
 
-
-
-
+       
     void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.tag == "Mob")
@@ -115,6 +131,9 @@ public class PlayerStats : MonoBehaviour
             playerExp = data.playerExp;
             PlayerExpToNextLvl = data.playerExpToNextLvl;
             gameLvl = data.gameLvl;
+
+            pocket.money = data.money;
+            pocket.diamonds = data.diamonds;
         } else
         {
             hp = 100;
@@ -129,6 +148,8 @@ public class PlayerStats : MonoBehaviour
         //Obnovitj healthbar
         PlusHP(0);
         AddPlayerExp(0);
+        AddDiamonds(0);
+        AddMoney(0);
     }
 
 
@@ -147,6 +168,7 @@ public class PlayerStats : MonoBehaviour
     public IEnumerator FinishWin()
     {
         this.GameLvl++;
+        AddDiamonds(1);
         SaveSystem.SavePlayer(this);
         yield return new WaitForSeconds(3);
         Debug.Log("Go to menu!");

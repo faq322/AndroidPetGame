@@ -109,6 +109,7 @@ public class SpawnMob : MonoBehaviour
                     randomY = (float)rand.Next(-5, 5) / 10;
                     spawnPoint.y += randomY;
                 }
+                mob.GetComponent<SpriteRenderer>().sortingOrder+=(int)randomY*10;
                 mob.transform.parent = this.transform;
             }
 

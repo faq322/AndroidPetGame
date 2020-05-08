@@ -18,6 +18,8 @@ public class PlayerData
     public int hp;
     public int maxHP;
 
+    public int money;
+    public int diamonds;
 
     public PlayerData (PlayerStats player)
     {
@@ -33,6 +35,9 @@ public class PlayerData
 
         hp = player.HP();
         maxHP = player.MaxHP;
+
+        money = player.pocket.money;
+        diamonds = player.pocket.diamonds;
     }
 
 
