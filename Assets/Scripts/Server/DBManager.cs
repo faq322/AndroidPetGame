@@ -28,6 +28,7 @@ public class DBManager : MonoBehaviour
             inputUserName.text = userName;
             if (CheckInputFieldName()) Welcome();
             Debug.Log(Application.persistentDataPath);
+            Debug.Log(data.playerName);
         }
 
     }

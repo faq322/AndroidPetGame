@@ -182,9 +182,9 @@ public class PlayerStats : MonoBehaviour
     void OnApplicationQuit()
     //public void quit()
     {
+        //TimeSystem.CheckTime();
         SaveSystem.SavePlayer(this);
         StartCoroutine(SaveSystem.SavePlayerOnServer(this));
-        Debug.Log("Application ending after " + Time.time + " seconds");
     }
 
     public void testLoad()
