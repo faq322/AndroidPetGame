@@ -26,9 +26,8 @@ public class DBManager : MonoBehaviour
             userName = data.playerName;
             password = data.playerPassword;
             inputUserName.text = userName;
-            Welcome();
+            if (CheckInputFieldName()) Welcome();
             Debug.Log(Application.persistentDataPath);
-
         }
 
     }
@@ -36,7 +35,7 @@ public class DBManager : MonoBehaviour
     public void Welcome()
     {
         Error("");
-        if (CheckInputField()) {
+        if (CheckInputFieldName()) {
             Debug.Log("Server command: " + serverCommand);
             switch (serverCommand)
             {
@@ -59,12 +58,6 @@ public class DBManager : MonoBehaviour
         }
     }
 
-    private bool CheckInputField()
-    {
-        if (CheckInputFieldName()) return true;
-
-        return false;
-    }
 
     private bool CheckInputFieldName()
     {
@@ -124,7 +117,6 @@ public class DBManager : MonoBehaviour
             password = "";
             password += glyphs[Random.Range(0, glyphs.Length)];
             PlayerStats.playerPassword += password;
-
         }
     }
 
