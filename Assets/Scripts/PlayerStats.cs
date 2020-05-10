@@ -43,6 +43,7 @@ public class PlayerStats : MonoBehaviour
     public class Experiece
     {
         public int playerLvl;
+        public Text playerLvlText;
         public int playerExp;
         public int playerExpToNextLvl;
         public Image expBar;
@@ -101,6 +102,7 @@ public class PlayerStats : MonoBehaviour
         if (indicators.experience.playerExp >= PlayerExpToNextLvl)
         {
             indicators.experience.playerLvl++;
+            indicators.experience.playerLvlText.text = indicators.experience.playerLvl.ToString();
             indicators.experience.playerExp -= PlayerExpToNextLvl;
             PlayerExpToNextLvl += 20;
             AddDiamonds(1);
@@ -145,10 +147,11 @@ public class PlayerStats : MonoBehaviour
             playerName = data.playerName;
             playerPassword = data.playerPassword;
 
-            indicators.health.hp = data.hp;
+            indicators.health.hp = data.maxHP;//data.hp;
             MaxHP = data.maxHP;
 
             indicators.experience.playerLvl = data.playerLvl;
+            indicators.experience.playerLvlText.text = indicators.experience.playerLvl.ToString();
             indicators.experience.playerExp = data.playerExp;
             PlayerExpToNextLvl = data.playerExpToNextLvl;
             gameLvl = data.gameLvl;
@@ -161,6 +164,7 @@ public class PlayerStats : MonoBehaviour
             MaxHP = 100;
             indicators.experience.playerExp = 0;
             indicators.experience.playerLvl = 1;
+            indicators.experience.playerLvlText.text = indicators.experience.playerLvl.ToString();
             PlayerExpToNextLvl = 10;
             gameLvl = 1;
         }
@@ -226,7 +230,7 @@ public class PlayerStats : MonoBehaviour
 
     public void testLoad()
     {
-        //SaveSystem.SavePlayer(this);
+        SaveSystem.SavePlayer(this);
         StartCoroutine(SaveSystem.SavePlayerOnServer(this));
 
     }

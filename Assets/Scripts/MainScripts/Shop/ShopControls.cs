@@ -17,20 +17,17 @@ public class ShopControls : MonoBehaviour
     public static bool shopActive=false;
     public void ShowShop()
     {
-        if (!shopActive)
-        {
             shop.SetActive(true); // false to hide, true to show
             GoToMainMenu();
             shopActive = true;
-            Controls.shopMenuOpened = true;
-        }
+            //Controls.shopMenuOpened = true;
     }
 
     public void HideShop()
     {
         shop.SetActive(false); // false to hide, true to show
         shopActive = false;
-        Controls.shopMenuOpened = false;
+        //Controls.shopMenuOpened = false;
     }
 
     //Navigation in shop
