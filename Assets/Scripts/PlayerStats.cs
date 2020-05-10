@@ -10,10 +10,6 @@ public class PlayerStats : MonoBehaviour
     public static string playerName;
     public static string playerPassword;
     public static int userID;
-    public int playerLvl;
-    public int playerExp;
-    public int playerExpToNextLvl;
-    public Image expBar;
     public int gameLvl;
 
     //InGame
@@ -24,12 +20,36 @@ public class PlayerStats : MonoBehaviour
     public static bool lose; //проигрыш
     public static bool start; //начало волны
 
-    [Header("Health")]
-    public Image healthBar;
-    public int hp;
-    public int maxHP;
+    //[Header("Health")]
 
-   // [Header("Pocket")]
+    [System.Serializable]
+    public class Indicators
+    {
+        public Health health;
+        public Experiece experience;
+    }
+    public Indicators indicators;
+    
+    [System.Serializable]
+    public class Health
+    {
+        public Image healthBar;
+        public int hp;
+        public Text currentHpText;
+        public int maxHP;
+        public Text maxHpText;
+    }
+    [System.Serializable]
+    public class Experiece
+    {
+        public int playerLvl;
+        public int playerExp;
+        public int playerExpToNextLvl;
+        public Image expBar;
+    }
+
+
+    // [Header("Pocket")]
     [System.Serializable]
     public class Pocket
     {
@@ -51,14 +71,15 @@ public class PlayerStats : MonoBehaviour
 
     public int HP()
     {
-        return hp;
+        return indicators.health.hp;
     }
     public void PlusHP(int change)
     {
-        hp += change;
-        healthBar.fillAmount = (float)hp / (float)maxHP;
-
-        if (hp <= 0)
+        indicators.health.hp += change;
+        indicators.health.healthBar.fillAmount = (float)indicators.health.hp / (float)indicators.health.maxHP;
+        indicators.health.currentHpText.text = indicators.health.hp.ToString();
+        indicators.health.maxHpText.text = indicators.health.maxHP.ToString();
+        if (indicators.health.hp <= 0)
         {
             lose = true;
             inGame = false;
@@ -68,25 +89,25 @@ public class PlayerStats : MonoBehaviour
         }
     }
     //public int HP { get => hp; set => hp = value; }
-    public int MaxHP { get => maxHP; set => maxHP = value; }
+    public int MaxHP { get => indicators.health.maxHP; set => indicators.health.maxHP = value; }
     public int GameLvl { get => gameLvl; set => gameLvl = value; }
-    public int PlayerExp { get => playerExp; set => playerExp = value; }
+    public int PlayerExp { get => indicators.experience.playerExp; set => indicators.experience.playerExp = value; }
 
         //Exp increase and level increase
     public void AddPlayerExp(int amount)
     {
-        playerExp += amount;
-        expBar.fillAmount = (float)playerExp / (float)PlayerExpToNextLvl;
-        if (playerExp >= PlayerExpToNextLvl)
+        indicators.experience.playerExp += amount;
+        indicators.experience.expBar.fillAmount = (float)indicators.experience.playerExp / (float)PlayerExpToNextLvl;
+        if (indicators.experience.playerExp >= PlayerExpToNextLvl)
         {
-            playerLvl++;
-            playerExp -= PlayerExpToNextLvl;
+            indicators.experience.playerLvl++;
+            indicators.experience.playerExp -= PlayerExpToNextLvl;
             PlayerExpToNextLvl += 20;
             AddDiamonds(1);
         }
     }
-    public int PlayerLvl { get => playerLvl; set => playerLvl = value; }
-    public int PlayerExpToNextLvl { get => playerExpToNextLvl; set => playerExpToNextLvl = value; }
+    public int PlayerLvl { get => indicators.experience.playerLvl; set => indicators.experience.playerLvl = value; }
+    public int PlayerExpToNextLvl { get => indicators.experience.playerExpToNextLvl; set => indicators.experience.playerExpToNextLvl = value; }
 
     public void AddMoney(int amount)
     {
@@ -107,8 +128,8 @@ public class PlayerStats : MonoBehaviour
     {
         if (other.gameObject.tag == "Mob")
         {
-            hp -= 10;
-            Debug.Log("Player take damage! HP left: " + hp);
+            indicators.health.hp -= 10;
+            Debug.Log("Player take damage! HP left: " + indicators.health.hp);
         }
     }
 
@@ -124,11 +145,11 @@ public class PlayerStats : MonoBehaviour
             playerName = data.playerName;
             playerPassword = data.playerPassword;
 
-            hp = data.hp;
+            indicators.health.hp = data.hp;
             MaxHP = data.maxHP;
 
-            playerLvl = data.playerLvl;
-            playerExp = data.playerExp;
+            indicators.experience.playerLvl = data.playerLvl;
+            indicators.experience.playerExp = data.playerExp;
             PlayerExpToNextLvl = data.playerExpToNextLvl;
             gameLvl = data.gameLvl;
 
@@ -136,10 +157,10 @@ public class PlayerStats : MonoBehaviour
             pocket.diamonds = data.diamonds;
         } else
         {
-            hp = 100;
+            indicators.health.hp = 100;
             MaxHP = 100;
-            playerExp = 0;
-            playerLvl = 1;
+            indicators.experience.playerExp = 0;
+            indicators.experience.playerLvl = 1;
             PlayerExpToNextLvl = 10;
             gameLvl = 1;
         }
@@ -186,6 +207,22 @@ public class PlayerStats : MonoBehaviour
         SaveSystem.SavePlayer(this);
         StartCoroutine(SaveSystem.SavePlayerOnServer(this));
     }
+
+    private void OnApplicationPause(bool pause)
+    {
+        if (pause)
+        {
+            //SaveSystem.SavePlayer(this);
+            //StartCoroutine(SaveSystem.SavePlayerOnServer(this));
+            Debug.Log("Game paused");
+            
+        } else
+        {
+            //Application.LoadLevel("Login");
+            Debug.Log("Game unpaused");
+        }
+    }
+
 
     public void testLoad()
     {
