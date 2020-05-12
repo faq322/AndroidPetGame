@@ -26,11 +26,12 @@ public class BulletSpawn : MonoBehaviour
 
     void Start()
     {
-        StartCoroutine(Spawn());
+        int i = PlayerStats.gun;
+        StartCoroutine(Spawn(i));
         //.
     }
 
-    IEnumerator Spawn()
+    IEnumerator Spawn(int i)
     {
         while (PlayerStats.inGame)
         {
@@ -42,7 +43,7 @@ public class BulletSpawn : MonoBehaviour
                 anim.SetInteger("State", 2);
                 yield return new WaitForSeconds(0.1f);
                 var rotation = Quaternion.Euler(0, 0, getFirePointAngle());
-                Instantiate(guns[1].bullet, firePoint.position, rotation);
+                Instantiate(guns[i].bullet, firePoint.position, rotation);
                 yield return new WaitForSeconds(0.3f);
                 anim.SetInteger("State", 1);
             //Debug.Log("Animation : " + anim.GetInteger("State"));

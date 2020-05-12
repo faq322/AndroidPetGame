@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ChangeScene : MonoBehaviour
 {
@@ -14,7 +15,8 @@ public class ChangeScene : MonoBehaviour
             PlayerStats.win = false; //победа
             PlayerStats.lose = false; //проигрыш
             PlayerStats.start = false; //начало волны
-            Application.LoadLevel (scenename);
+           // Application.LoadLevel (scenename);
+            SceneManager.LoadScene(scenename);
 
         }
     }

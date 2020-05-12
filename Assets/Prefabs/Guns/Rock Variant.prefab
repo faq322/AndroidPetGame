@@ -98,5 +98,15 @@ PrefabInstance:
       propertyPath: m_Radius
       value: 0.76
       objectReference: {fileID: 0}
+    - target: {fileID: 8290103567639216850, guid: aa3097a2b3bbc3847a27a84c3c7f450d,
+        type: 3}
+      propertyPath: bulletDamage
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 8290103567639216850, guid: aa3097a2b3bbc3847a27a84c3c7f450d,
+        type: 3}
+      propertyPath: bulletSpeed
+      value: 5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: aa3097a2b3bbc3847a27a84c3c7f450d, type: 3}
