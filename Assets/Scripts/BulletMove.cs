@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class BulletMove : MonoBehaviour
 {
-    public Transform bullet;
+    //public Transform bullet;
     public Rigidbody2D rb;
-
-    public static int bulletSpeed = 6;
-
+    [SerializeField]
+    public int bulletSpeed = 6;
     [SerializeField]
     public int bulletDamage = 15;
     //для отдачи и разброса
-    public static int bulletPower = 5;
+    [SerializeField]
+    public int bulletPower = 5;
 
 
     void Start()

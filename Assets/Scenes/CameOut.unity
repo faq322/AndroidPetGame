@@ -316,6 +316,8 @@ MonoBehaviour:
   target: {fileID: 191424129}
   bullet: {fileID: 3087750441854801265, guid: 2b1494d812ce2cf4ea2e118f11d9b1ef, type: 3}
   anim: {fileID: 33933255}
+  bulletMove: {fileID: 7368355860480278729, guid: 2b1494d812ce2cf4ea2e118f11d9b1ef,
+    type: 3}
 --- !u!1 &57207917
 GameObject:
   m_ObjectHideFlags: 0
@@ -1598,6 +1600,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameLvl: 1
+  guns: []
   indicators:
     health:
       healthBar: {fileID: 1275563859}

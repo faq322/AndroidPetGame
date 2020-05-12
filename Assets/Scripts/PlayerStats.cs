@@ -20,7 +20,15 @@ public class PlayerStats : MonoBehaviour
     public static bool lose; //проигрыш
     public static bool start; //начало волны
 
-    //[Header("Health")]
+    [System.Serializable]
+    public class Guns
+    {
+        public string name;
+        public GameObject gunObject;
+        public bool purchised;
+    }
+
+    public Guns[] guns;
 
     [System.Serializable]
     public class Indicators

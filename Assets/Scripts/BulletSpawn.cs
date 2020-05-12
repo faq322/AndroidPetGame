@@ -7,15 +7,20 @@ public class BulletSpawn : MonoBehaviour
 {
     public Transform firePoint;
     public Transform target;
-    public GameObject bullet;
     public Animator anim;
+
+    public GameObject bullet;
+    public BulletMove bulletMove;
+
 
     private bool startMobSpawn;
 
+    
 
     void Start()
     {
         StartCoroutine(Spawn());
+        //.
     }
 
     IEnumerator Spawn()
@@ -45,7 +50,7 @@ public class BulletSpawn : MonoBehaviour
         var x = target.position.x - firePoint.position.x;
         var y = target.position.y - firePoint.position.y;
         //чуть увеличиваем угол с расчетом на дальность прицела
-        var bonusAngleFromDistance = x / (BulletMove.bulletSpeed-3f)*6f;
+        var bonusAngleFromDistance = x / ((float)bulletMove.bulletSpeed-3f)*6f;
         //угол для разброса в зависимости от силы отдачи
         Random rand = new Random();
         //var randomAngle = rand.Next(-1*BulletMove.bulletPower,BulletMove.bulletPower);
