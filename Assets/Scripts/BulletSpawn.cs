@@ -9,8 +9,15 @@ public class BulletSpawn : MonoBehaviour
     public Transform target;
     public Animator anim;
 
-    public GameObject bullet;
-    public BulletMove bulletMove;
+    [System.Serializable]
+    public class Gun
+    {
+        public string name;
+        public GameObject bullet;
+    }
+
+    public Gun[] guns;
+    //public BulletMove bulletMove;
 
 
     private bool startMobSpawn;
@@ -35,7 +42,7 @@ public class BulletSpawn : MonoBehaviour
                 anim.SetInteger("State", 2);
                 yield return new WaitForSeconds(0.1f);
                 var rotation = Quaternion.Euler(0, 0, getFirePointAngle());
-                Instantiate(bullet, firePoint.position, rotation);
+                Instantiate(guns[1].bullet, firePoint.position, rotation);
                 yield return new WaitForSeconds(0.3f);
                 anim.SetInteger("State", 1);
             //Debug.Log("Animation : " + anim.GetInteger("State"));
@@ -50,7 +57,7 @@ public class BulletSpawn : MonoBehaviour
         var x = target.position.x - firePoint.position.x;
         var y = target.position.y - firePoint.position.y;
         //чуть увеличиваем угол с расчетом на дальность прицела
-        var bonusAngleFromDistance = x / ((float)bulletMove.bulletSpeed-3f)*6f;
+        var bonusAngleFromDistance = x / ((float)guns[0].bullet.GetComponent<BulletMove>().bulletSpeed-3f)*6f;
         //угол для разброса в зависимости от силы отдачи
         Random rand = new Random();
         //var randomAngle = rand.Next(-1*BulletMove.bulletPower,BulletMove.bulletPower);

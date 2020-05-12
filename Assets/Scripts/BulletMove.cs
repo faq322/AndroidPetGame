@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
 public class BulletMove : MonoBehaviour
 {
     //public Transform bullet;
@@ -13,6 +14,7 @@ public class BulletMove : MonoBehaviour
     //для отдачи и разброса
     [SerializeField]
     public int bulletPower = 5;
+
 
 
     void Start()

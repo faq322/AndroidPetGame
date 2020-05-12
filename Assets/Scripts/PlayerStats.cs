@@ -20,7 +20,7 @@ public class PlayerStats : MonoBehaviour
     public static bool lose; //проигрыш
     public static bool start; //начало волны
 
-    [System.Serializable]
+/*    [System.Serializable]
     public class Guns
     {
         public string name;
@@ -28,7 +28,7 @@ public class PlayerStats : MonoBehaviour
         public bool purchised;
     }
 
-    public Guns[] guns;
+    public Guns[] guns;*/
 
     [System.Serializable]
     public class Indicators

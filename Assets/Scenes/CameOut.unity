@@ -210,9 +210,10 @@ GameObject:
   - component: {fileID: 33933254}
   - component: {fileID: 33933256}
   - component: {fileID: 33933255}
+  - component: {fileID: 33933258}
   - component: {fileID: 33933257}
   m_Layer: 0
-  m_Name: Player_skin
+  m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -314,10 +315,45 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   firePoint: {fileID: 296950180}
   target: {fileID: 191424129}
-  bullet: {fileID: 3087750441854801265, guid: 2b1494d812ce2cf4ea2e118f11d9b1ef, type: 3}
   anim: {fileID: 33933255}
-  bulletMove: {fileID: 7368355860480278729, guid: 2b1494d812ce2cf4ea2e118f11d9b1ef,
-    type: 3}
+  guns:
+  - name: Rock
+    bullet: {fileID: 3087750441854801265, guid: 2b1494d812ce2cf4ea2e118f11d9b1ef,
+      type: 3}
+  - name: Rock
+    bullet: {fileID: 4581305906142271338, guid: aa3097a2b3bbc3847a27a84c3c7f450d,
+      type: 3}
+--- !u!114 &33933258
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 33933253}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3bdf8f69595adf4d8f07a4b0f10cdb8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameLvl: 1
+  indicators:
+    health:
+      healthBar: {fileID: 1275563859}
+      hp: 0
+      currentHpText: {fileID: 766580414}
+      maxHP: 0
+      maxHpText: {fileID: 1399988307}
+    experience:
+      playerLvl: 0
+      playerLvlText: {fileID: 1640755242}
+      playerExp: 0
+      playerExpToNextLvl: 0
+      expBar: {fileID: 57207920}
+  pocket:
+    money: 0
+    moneyAmount: {fileID: 1720850602}
+    diamonds: 0
+    diamondsAmount: {fileID: 1450457687}
 --- !u!1 &57207917
 GameObject:
   m_ObjectHideFlags: 0
@@ -1409,8 +1445,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1c10e6df25623e4a9d51ee859a6de53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerObject: {fileID: 1078979649}
-  player: {fileID: 1078979655}
+  playerObject: {fileID: 33933253}
+  player: {fileID: 33933258}
   Spawner: {fileID: 1068275831}
   mobs:
   - name: Slime
@@ -1467,9 +1503,8 @@ GameObject:
   - component: {fileID: 1078979650}
   - component: {fileID: 1078979653}
   - component: {fileID: 1078979654}
-  - component: {fileID: 1078979655}
   m_Layer: 0
-  m_Name: Player
+  m_Name: Player_object
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1587,38 +1622,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &1078979655
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1078979649}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d3bdf8f69595adf4d8f07a4b0f10cdb8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gameLvl: 1
-  guns: []
-  indicators:
-    health:
-      healthBar: {fileID: 1275563859}
-      hp: 0
-      currentHpText: {fileID: 766580414}
-      maxHP: 0
-      maxHpText: {fileID: 1399988307}
-    experience:
-      playerLvl: 0
-      playerLvlText: {fileID: 1640755242}
-      playerExp: 0
-      playerExpToNextLvl: 0
-      expBar: {fileID: 57207920}
-  pocket:
-    money: 0
-    moneyAmount: {fileID: 1720850602}
-    diamonds: 0
-    diamondsAmount: {fileID: 1450457687}
 --- !u!1 &1124851543
 GameObject:
   m_ObjectHideFlags: 0

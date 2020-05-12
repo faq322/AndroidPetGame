@@ -43,11 +43,8 @@ public class MoveTarget : MonoBehaviour
                     newZ = -15f;
                 }
 
-               // playerTarget.transform.Rotate(new Vector3(0.0f, 0.0f, -newZ) * speed * Time.deltaTime);
-                //playerTarget.rotation = new Vector3(0.0f, 0.0f, 0f);
                 playerTarget.transform.RotateAround(firePoint.position, new Vector3(0.0f, 0.0f, newZ), 3.0f*speed * Time.deltaTime);
                 playerTarget.rotation = Quaternion.identity;
-                // playerTarget.position = Vector2.MoveTowards(playerTarget.position, new Vector2(mousePos.x, newY), speed * Time.deltaTime);
             }
 
         }
