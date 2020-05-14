@@ -111,7 +111,7 @@ public class MoveForward : MonoBehaviour
         Destroy(gameObject);
 
         player.AddPlayerExp(exp);
-        player.AddMoney(moneyReward);
+        player.pocket.AddMoney(moneyReward);
         
 
         mobSpawner.MinusMob();

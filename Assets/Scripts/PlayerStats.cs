@@ -24,6 +24,7 @@ public class PlayerStats : MonoBehaviour
     public class Guns
     {
         public string name;
+        public int price;
         public GameObject gunObject;
         public bool purchised;
     }
@@ -63,9 +64,24 @@ public class PlayerStats : MonoBehaviour
     public class Pocket
     {
         public int money;
-        public Text moneyAmount;
         public int diamonds;
+
+        public Text moneyAmount;
         public Text diamondsAmount;
+
+        public void AddDiamonds(int amount)
+        {
+            diamonds += amount;
+            diamondsAmount.text = "";
+            diamondsAmount.text += diamonds;
+        }
+
+        public void AddMoney(int amount)
+        {
+            money += amount;
+            moneyAmount.text = "";
+            moneyAmount.text += money;
+        }
     }
 
     public Pocket pocket;
@@ -113,25 +129,15 @@ public class PlayerStats : MonoBehaviour
             indicators.experience.playerLvlText.text = indicators.experience.playerLvl.ToString();
             indicators.experience.playerExp -= PlayerExpToNextLvl;
             PlayerExpToNextLvl += 20;
-            AddDiamonds(1);
+            pocket.AddDiamonds(1);
         }
     }
     public int PlayerLvl { get => indicators.experience.playerLvl; set => indicators.experience.playerLvl = value; }
     public int PlayerExpToNextLvl { get => indicators.experience.playerExpToNextLvl; set => indicators.experience.playerExpToNextLvl = value; }
 
-    public void AddMoney(int amount)
-    {
-        this.pocket.money += amount;
-        this.pocket.moneyAmount.text = "";
-        this.pocket.moneyAmount.text += this.pocket.money;
-    }
 
-    public void AddDiamonds(int amount)
-    {
-        this.pocket.diamonds += amount;
-        this.pocket.diamondsAmount.text = "";
-        this.pocket.diamondsAmount.text += this.pocket.diamonds;
-    }
+
+
 
        
     void OnTriggerEnter2D(Collider2D other)
@@ -176,13 +182,13 @@ public class PlayerStats : MonoBehaviour
             PlayerExpToNextLvl = 10;
             gameLvl = 1;
         }
-        gun = 0;
+        //gun = 0;
 
         //Obnovitj healthbar
         PlusHP(0);
         AddPlayerExp(0);
-        AddDiamonds(0);
-        AddMoney(0);
+        pocket.AddDiamonds(0);
+        pocket.AddMoney(0);
     }
 
 
@@ -201,7 +207,7 @@ public class PlayerStats : MonoBehaviour
     public IEnumerator FinishWin()
     {
         this.GameLvl++;
-        AddDiamonds(1);
+        pocket.AddDiamonds(1);
         SaveSystem.SavePlayer(this);
         yield return new WaitForSeconds(3);
         Debug.Log("Go to menu!");

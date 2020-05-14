@@ -29,6 +29,7 @@ public class PlayerData
 
 
         playerLvl = player.PlayerLvl;
+        
         playerExp = player.PlayerExp;
         playerExpToNextLvl = player.PlayerExpToNextLvl;
         gameLvl = player.gameLvl;
