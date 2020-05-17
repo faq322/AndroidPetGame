@@ -32,6 +32,19 @@ public class PlayerStats : MonoBehaviour
     public Guns[] guns;
 
     [System.Serializable]
+    public class Caves
+    {
+        public string name;
+        public int price;
+        public GameObject caveObject;
+        public bool purchised;
+    }
+
+    public Caves[] caves;
+
+
+
+    [System.Serializable]
     public class Indicators
     {
         public Health health;

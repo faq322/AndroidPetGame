@@ -10,44 +10,32 @@ public class GunPress : MonoBehaviour
     public GameObject playerObject;
     public PlayerStats player;
     //public Guns gun;
+    public InfoBottom informationPanel;
 
 
-    public Text gunname;
-    public Text guninfo;
-    public static int guni;
-
-    public void pick(int i)
+    public void PickItemNum(int i)
     {
-        gunname.text = player.guns[i].name;
-        guninfo.text = player.guns[i].price.ToString();
-        guni = i;
-    }
-
-    public void Buy()
-    {
-        int i = guni;
-        Debug.Log(i);
-        //Check if purchaused
-        if (!player.guns[i].purchised)
+        InfoBottom.item_num = i;
+        Debug.Log("Picked " + InfoBottom.item_type + ", Num " + InfoBottom.item_num);
+        switch (InfoBottom.item_type)
         {
-            if (ConfirmBuy(player.guns[i].price))
-            {
-                PlayerStats.gun = i;
-                player.guns[i].purchised = true;
-            }
-        } else
-        {
-            //PlayerStats.gun = i;
+            case "Gun":
+                informationPanel.setInfo(player.guns[i].name, player.guns[i].price.ToString());
+                break;
+            case "Cave":
+                informationPanel.setInfo(player.caves[i].name, player.caves[i].price.ToString());
+                break;
+            default:
+                Debug.Log("Wrong item type");
+                break;
         }
-        
     }
 
-    public bool ConfirmBuy(int price)
+
+    public void PickItemType(string a)
     {
-        int money = player.pocket.money;
-        if (price>money) return false;
-        player.pocket.AddMoney(-price);
-        return true;
-
+        InfoBottom.item_type = a;
     }
+
+
 }
