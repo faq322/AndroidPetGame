@@ -13,6 +13,8 @@ public class InfoBottom : MonoBehaviour
     public Text info;
     public Text button;
 
+    public ShopInfoText popinfo;
+
     public static int item_num;
     public static string item_type;
 
@@ -41,7 +43,7 @@ public class InfoBottom : MonoBehaviour
                 }
                 break;
             case "Cave":
-                if (player.caves[item_num].purchised) button.text = "Use"; else button.text = "Buy";
+                if (player.caves[item_num].purchised) button.text = ""; else button.text = "Buy";
                 break;
         }
     }
@@ -67,6 +69,7 @@ public class InfoBottom : MonoBehaviour
         {
             case "Gun":
                 Debug.Log("Using gun...");
+                popinfo.Appear("Gun switched!");
                 PlayerStats.gun = item_num;
                 break;
             case "Cave":
@@ -109,12 +112,15 @@ public class InfoBottom : MonoBehaviour
             {
                 PlayerStats.gun = i;
                 player.guns[i].purchised = true;
-                setInfo(player.guns[item_num].name, "Purchised!");
+                setInfo(player.guns[item_num].name, "Purchased!");
+                SaveSystem.SavePlayer(player);
+                popinfo.Appear(player.guns[item_num].name+" purchased!");
             }        
             else
             {
                 //PlayerStats.gun = i;
                 Debug.Log("Not enough money");
+                popinfo.Appear("Not enough money!");
             }
         }
 
@@ -128,8 +134,13 @@ public class InfoBottom : MonoBehaviour
         {
             if (ConfirmBuy(player.caves[i].price))
             {
+                popinfo.Appear(player.caves[i].name+" purchised!");
                 player.caves[i].purchised = true;
                 player.caves[i].ShowCave();
+                SaveSystem.SavePlayer(player);
+            } else
+            {
+                popinfo.Appear("Not enough money!");
             }
         }
         else
@@ -144,7 +155,6 @@ public class InfoBottom : MonoBehaviour
         int money = player.pocket.money;
         if (price > money) return false;
         player.pocket.AddMoney(-price);
-        SaveSystem.SavePlayer(player);
         return true;
 
     }

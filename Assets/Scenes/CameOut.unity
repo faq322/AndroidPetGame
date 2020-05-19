@@ -323,6 +323,12 @@ MonoBehaviour:
   - name: Coin
     bullet: {fileID: 3511865992506111438, guid: a01d426adaad3294b8168a861862108d,
       type: 3}
+  - name: Bomb
+    bullet: {fileID: 5486381277050343838, guid: ba282ad4083d91e4c9b8ffe2a5d782aa,
+      type: 3}
+  - name: Asteroid
+    bullet: {fileID: 3543151960484734752, guid: bd858b5fe15a5cc4c96b5189daa0af51,
+      type: 3}
 --- !u!114 &33933258
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -342,6 +348,12 @@ MonoBehaviour:
     purchised: 0
   - name: Coin
     price: 30
+    purchised: 0
+  - name: Bomb
+    price: 50
+    purchised: 0
+  - name: Asteroid
+    price: 100
     purchised: 0
   caves:
   - name: Cave of Health
@@ -1943,6 +1955,7 @@ MonoBehaviour:
   playerObject: {fileID: 33933253}
   player: {fileID: 33933258}
   Spawner: {fileID: 1068275831}
+  winLose: {fileID: 2102064814}
   mobs:
   - name: Slime
     mob1: {fileID: 1744205728516974669, guid: 7c48acb633661564e96d19ba338dbb59, type: 3}
@@ -1952,7 +1965,7 @@ MonoBehaviour:
   - name: Fly
     mob1: {fileID: 3369214789586324152, guid: 965c5da9c7d1ec34da81492704d8d398, type: 3}
     power: 30
-    spawnHeight: 5
+    spawnHeight: 3
     spawnCount: 3
   - name: Pink Slime
     mob1: {fileID: 3994391767697762637, guid: eb918c97d766ad24d8090a982c14bf3f, type: 3}
@@ -1962,7 +1975,7 @@ MonoBehaviour:
   - name: Slow fly
     mob1: {fileID: 5657068427856516848, guid: 3b56e8377c721574dbf0c58c669438ed, type: 3}
     power: 90
-    spawnHeight: 4
+    spawnHeight: 2
     spawnCount: 1
   - name: Soldier Slime
     mob1: {fileID: 5657068427856516848, guid: 3b56e8377c721574dbf0c58c669438ed, type: 3}
@@ -2236,7 +2249,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1130440106}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c2b46e7fbbcbab74e846a8aed7e9a8fe, type: 3}
   m_Name: 
@@ -2298,7 +2311,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 3.54
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -2322,7 +2335,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1238290396}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalPosition: {x: 1.76, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -4262,7 +4275,7 @@ GameObject:
   - component: {fileID: 2102064817}
   - component: {fileID: 2102064816}
   m_Layer: 5
-  m_Name: Level
+  m_Name: WinLose
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4284,8 +4297,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 203}
-  m_SizeDelta: {x: 160, y: 30}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 600, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2102064816
 MonoBehaviour:
@@ -4300,7 +4313,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_Color: {r: 1, g: 0.80610764, b: 0, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -4310,17 +4323,17 @@ MonoBehaviour:
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
     m_FontSize: 14
-    m_FontStyle: 0
-    m_BestFit: 0
+    m_FontStyle: 1
+    m_BestFit: 1
     m_MinSize: 10
-    m_MaxSize: 40
-    m_Alignment: 0
+    m_MaxSize: 100
+    m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: New Text
+  m_Text: YOU WIN
 --- !u!222 &2102064817
 CanvasRenderer:
   m_ObjectHideFlags: 0

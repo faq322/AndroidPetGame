@@ -25,6 +25,8 @@ public class PlayerData
 
     public bool gun_rock;
     public bool gun_coin;
+    public bool gun_bomb;
+    public bool gun_asteroid;
 
     public PlayerData (PlayerStats player)
     {
@@ -48,6 +50,9 @@ public class PlayerData
         cave_healing = player.caves[0].purchised;
         
         gun_coin = player.guns[1].purchised;
+        gun_bomb = player.guns[2].purchised;
+        gun_asteroid = player.guns[3].purchised;
+        Debug.Log("Healing Cave "+cave_healing);
     }
 
 

@@ -7,7 +7,7 @@ public class SpawnMob : MonoBehaviour
     public GameObject playerObject;
     public PlayerStats player;// = playerObject.GetComponent<PlayerStats>();
     public Transform Spawner;
-
+    public GameObject winLose;
 
 
     //Slime
@@ -52,16 +52,18 @@ public class SpawnMob : MonoBehaviour
 
     public void MinusMob()
     {
-        Debug.Log("MOB ID DEAD. total mobs: " + mobcounter + "; dead mobs: " + deadmobcounter);
         if (++deadmobcounter >= mobcounter && PlayerStats.inGame)
         {
             //Wictory
             PlayerStats.win = true;
             PlayerStats.inGame = false;
             Debug.Log("You win!");
+            winLose.SetActive(true);
             // DBgetset.StartCoroutine(SaveResults());
             StartCoroutine(player.FinishWin());
         }
+        Debug.Log("MOB ID DEAD. total mobs: " + mobcounter + "; dead mobs: " + deadmobcounter+". mobs[].length = "+mobs.Length);
+        
     }
 
     void Start ()
@@ -70,7 +72,7 @@ public class SpawnMob : MonoBehaviour
         // playerObject = GameObject.Find("Player");
         //player = playerObject.GetComponent<PlayerStats>();
 
-        
+        winLose.SetActive(false);
 
         StartCoroutine(Spawn());
     }
@@ -93,7 +95,7 @@ public class SpawnMob : MonoBehaviour
             //создание моба
 
             //место(высота) спавна
-            float randomY = (float)rand.Next(-5, 5) / 10;
+            float randomY = (float)rand.Next(-5, 3) / 10;
 
             Vector3 spawnPoint = Spawner.transform.position;
             spawnPoint.y += mobs[i_mobNum].spawnHeight + randomY;
@@ -114,7 +116,7 @@ public class SpawnMob : MonoBehaviour
             }
 
 
-            
+            mobcounter += mobs[i_mobNum].spawnCount - 1;
             yield return new WaitForSeconds(mobSpawnDelay);
             if (!PlayerStats.inGame) break;
         }

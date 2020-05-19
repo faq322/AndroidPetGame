@@ -195,6 +195,8 @@ public class PlayerStats : MonoBehaviour
 
             guns[0].purchised = true;
             guns[1].purchised = data.gun_coin;
+            guns[2].purchised = data.gun_bomb;
+            guns[3].purchised = data.gun_asteroid;
         } else
         {
             indicators.health.hp = 100;
@@ -246,6 +248,7 @@ public class PlayerStats : MonoBehaviour
     //public void quit()
     {
         //TimeSystem.CheckTime();
+        Debug.Log("Saving");
         SaveSystem.SavePlayer(this);
         StartCoroutine(SaveSystem.SavePlayerOnServer(this));
     }
@@ -254,13 +257,13 @@ public class PlayerStats : MonoBehaviour
     {
         if (pause)
         {
-            //SaveSystem.SavePlayer(this);
-            //StartCoroutine(SaveSystem.SavePlayerOnServer(this));
+            SaveSystem.SavePlayer(this);
+            StartCoroutine(SaveSystem.SavePlayerOnServer(this));
             Debug.Log("Game paused");
             
         } else
         {
-            //Application.LoadLevel("Login");
+            Application.LoadLevel("Login");
             Debug.Log("Game unpaused");
         }
     }
