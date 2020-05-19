@@ -25,7 +25,7 @@ public class PlayerStats : MonoBehaviour
     {
         public string name;
         public int price;
-        public GameObject gunObject;
+       // public GameObject gunObject;
         public bool purchised;
     }
 
@@ -38,11 +38,15 @@ public class PlayerStats : MonoBehaviour
         public int price;
         public GameObject caveObject;
         public bool purchised;
+
+        public void ShowCave()
+        {
+            if (purchised) caveObject.SetActive(true); else caveObject.SetActive(false);
+        }
     }
-
-    public Caves[] caves;
-
-
+        //public Caves CavesScript;
+        public Caves[] caves;
+    //public bool[] cavePurchised;
 
     [System.Serializable]
     public class Indicators
@@ -185,6 +189,12 @@ public class PlayerStats : MonoBehaviour
 
             pocket.money = data.money;
             pocket.diamonds = data.diamonds;
+
+
+            caves[0].purchised = data.cave_healing;
+
+            guns[0].purchised = true;
+            guns[1].purchised = data.gun_coin;
         } else
         {
             indicators.health.hp = 100;
@@ -202,6 +212,7 @@ public class PlayerStats : MonoBehaviour
         AddPlayerExp(0);
         pocket.AddDiamonds(0);
         pocket.AddMoney(0);
+        caves[0].ShowCave();
     }
 
 

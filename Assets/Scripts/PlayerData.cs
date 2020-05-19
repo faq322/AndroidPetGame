@@ -21,6 +21,11 @@ public class PlayerData
     public int money;
     public int diamonds;
 
+    public bool cave_healing;
+
+    public bool gun_rock;
+    public bool gun_coin;
+
     public PlayerData (PlayerStats player)
     {
         playerid = PlayerStats.userID;
@@ -39,6 +44,10 @@ public class PlayerData
 
         money = player.pocket.money;
         diamonds = player.pocket.diamonds;
+
+        cave_healing = player.caves[0].purchised;
+        
+        gun_coin = player.guns[1].purchised;
     }
 
 

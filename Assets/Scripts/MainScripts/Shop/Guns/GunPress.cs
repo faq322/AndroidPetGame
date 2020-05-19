@@ -12,6 +12,8 @@ public class GunPress : MonoBehaviour
     //public Guns gun;
     public InfoBottom informationPanel;
 
+    public GameObject[] galochka;
+
 
     public void PickItemNum(int i)
     {
@@ -29,13 +31,46 @@ public class GunPress : MonoBehaviour
                 Debug.Log("Wrong item type");
                 break;
         }
+
+        CheckPurchised();
     }
 
 
     public void PickItemType(string a)
     {
         InfoBottom.item_type = a;
+        CheckPurchised();
     }
+
+
+    public void CheckPurchised()
+    {
+        for (int i = 0; i < galochka.Length; i++)
+        { 
+            bool a = false;
+            switch (InfoBottom.item_type)
+            {
+                case "Gun":
+                    a = player.guns[i].purchised;
+                    break;
+                case "Cave":
+                    a = player.caves[i].purchised;
+                    break;
+                default:
+                    Debug.Log("Wrong item type");
+                    break;
+            }
+            if (a)
+            {
+                galochka[i].SetActive(true);
+            } else
+            {
+                galochka[i].SetActive(false);
+            }
+        }
+     
+    }
+
 
 
 }

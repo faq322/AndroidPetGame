@@ -64,4 +64,9 @@ public class ShopControls : MonoBehaviour
         shop_buildingsMenu.SetActive(true);
         shop_backButton.SetActive(true);
     }
+
+
+
+
+
 }

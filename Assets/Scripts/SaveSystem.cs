@@ -65,6 +65,10 @@ public static class SaveSystem
         form.AddField("maxHP", data.maxHP);
         form.AddField("money", data.money);
         form.AddField("diamonds", data.diamonds);
+        //form.AddField("cave_healing", data.cave_healing.ToString());
+        //form.AddField("gun_rock", data.gun_rock.ToString());
+        //form.AddField("gun_coin", data.gun_coin.ToString());
+
 
 
         WWW www = new WWW("http://p64328.hostru08.fornex.host/cameout.com/test/saveplayer.php", form);
