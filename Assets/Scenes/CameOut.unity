@@ -137,7 +137,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &26062887
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1983,7 +1983,7 @@ MonoBehaviour:
     spawnHeight: 0
     spawnCount: 1
   maximalMobCountInRow: 2
-  mobsLimit: 2
+  mobsLimit: 30
   mobSpawnDelay: 1.5
 --- !u!4 &1068275831
 Transform:

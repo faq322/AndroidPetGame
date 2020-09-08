@@ -29,7 +29,7 @@ public class MoveTarget : MonoBehaviour
             //circular border
             if (circularBorder)
             {
-                float acc = 0.2f; // погрешность
+                float acc = 0.1f; // погрешность
                 float newZ = 0;
                 mousePos.x = mousePos.x < -1.35f ? -1.35f : mousePos.x;
                 mousePos.x = mousePos.x > 8f ? 8f : mousePos.x;

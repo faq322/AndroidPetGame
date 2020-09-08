@@ -26,19 +26,15 @@ public class Controls : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-       // InactiveArea();
         CameraMovement();
         Borders();
     }
-
     bool InactiveArea()
     {
         var positionX = Camera.main.ScreenToViewportPoint(Input.mousePosition).x;
         if (shopMenuOpened && positionX > 0.6) return false;
         return true;
     }
-
     void Borders()
     {
         if (border==true)
@@ -46,7 +42,6 @@ public class Controls : MonoBehaviour
             transform.position = new Vector3(Mathf.Clamp(transform.position.x, minX, maxX), Mathf.Clamp(transform.position.y, minY, maxY),transform.position.z);
         }
     }
-
     void CameraMovement()
     {
         if (InactiveArea())
@@ -78,8 +73,6 @@ public class Controls : MonoBehaviour
             zoom(Input.GetAxis("Mouse ScrollWheel"));
         }
     }
-
-
     void zoom(float increment)
     {
         Camera.main.orthographicSize = Mathf.Clamp(Camera.main.orthographicSize - increment, zoomOutMin, zoomOutMax);
